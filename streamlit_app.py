@@ -54,6 +54,9 @@ if ingredients_list:   #actually means if ingredients_list is not null#
     for fruit_chosen in ingredients_list:
         ingredients_string+=fruit_chosen + ' '     #+= means add this to what is already in the variable #
                        #Ingredients_list and Ingredient_string are different varibles, dont mix them up #
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+        sf_dt=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
+
 
     #st.write(ingredients_string)
 
@@ -72,11 +75,7 @@ if ingredients_list:   #actually means if ingredients_list is not null#
         st.success('Your Smoothie is ordered!', icon="✅")
 
 
-#New section to display smoothiefroot nutrition information
 import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-#st.text(smoothiefroot_response.json())
-sf_dt=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
 
 
 
