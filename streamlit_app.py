@@ -77,7 +77,7 @@ if ingredients_list:   #actually means if ingredients_list is not null#
         st.success('Your Smoothie is ordered!', icon="✅")
 
 
-import requests
+#import requests
 #smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
 #sf_dt=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
 
