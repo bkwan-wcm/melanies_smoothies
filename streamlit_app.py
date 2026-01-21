@@ -57,7 +57,8 @@ if ingredients_list:   #actually means if ingredients_list is not null#
         #+= means add this to what is already in the variable #
         #Ingredients_list and Ingredient_string are different varibles, dont mix them up #
         ingredients_string+=fruit_chosen + ' '
-        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+        st.subheader(fruit_chosen + ' Nutrition Information')
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
         sf_dt=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
                        
 
