@@ -1,5 +1,6 @@
 # Import python packages
 import streamlit as st
+import pandas as pd
 import requests
 #from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
@@ -40,6 +41,11 @@ session=cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
+#convert the snowpark dataframe to a pandas dataframe so we can use the LOC function
+pd_df=my_dataframe.to_pandas()
+#st.dataframe(pd_df)
+#st.stop()
+
 
 ingredients_list=st.multiselect(
     'choose up to 5 ingredients:'
@@ -57,8 +63,14 @@ if ingredients_list:   #actually means if ingredients_list is not null#
         #+= means add this to what is already in the variable #
         #Ingredients_list and Ingredient_string are different varibles, dont mix them up #
         ingredients_string+=fruit_chosen + ' '
+
+        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+        #st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
+
+        
         st.subheader(fruit_chosen + ' Nutrition Information')
-        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
+        #smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/{search_on}"
         sf_dt=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
                        
 
